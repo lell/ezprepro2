@@ -1,5 +1,3 @@
-% _README_
-
 # ezprepro
 
 The **ezprepro** pipeline provides the preprocessing described in [S.M. Smith et al. 2021. *An expanded set of genome-wide association studies of brain imaging phenotypes in UK Biobank*](https://www.nature.com/articles/s41593-021-00826-4) for brain imaging genetics on UK Biobank. This pipeline has been used for the following work:
@@ -14,7 +12,7 @@ The **ezprepro** pipeline provides the preprocessing described in [S.M. Smith et
 
 - [J. Mollink et al. 2019. *The spatial correspondence and genetic influence of interhemispheric connectivity with white matter microstructure*](https://www.nature.com/articles/s41593-019-0379-2)
 
-The scripts for the **ezprepro** pipeline are provided [here](https://github.com/lell/ezwin/tree/master/ezprepro). To reproduce this pipeline, the scripts must be run on a high performance computer with a [_SLURM_-like](https://slurm.schedmd.com) cluster job scheduler, and with a local copy of the UKB genetic data (i.e., UKB [Data-Field 22828](https://biobank.ctsu.ox.ac.uk/crystal/field.cgi?id=22828]) and associated Data-Fields). The input to this pipeline is a list of sample IDs (the study sample). The output is a preprocessed version of the UKB genetic data with the study sample split into a discovery cohort and a replication cohort. **ezprepro** is released under the BSD 2-Clause License. That license, and the copyright for **ezprepro**, are listed at the bottom of this _README_ file.
+The scripts for the **ezprepro** pipeline are provided [here](https://github.com/lell/ezwin/tree/master/ezprepro). To reproduce this pipeline, the scripts must be run on a high performance computer with a [_SLURM_-like](https://slurm.schedmd.com) cluster job scheduler, and with a local (to the high performance computer) copy of the UKB genetic data (i.e., UKB [Data-Field 22828](https://biobank.ctsu.ox.ac.uk/crystal/field.cgi?id=22828]) and associated Data-Fields). The input to this pipeline is a list of sample IDs (the study sample). The output is a preprocessed version of the UKB genetic data with the study sample split into a discovery cohort and a replication cohort. **ezprepro** is released under the BSD 2-Clause License. That license, and the copyright for **ezprepro**, are listed at the bottom of this _README_ file.
 
 ### Preprocessing
 
