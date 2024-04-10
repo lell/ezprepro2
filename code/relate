@@ -1,0 +1,39 @@
+#!/usr/bin/env Rscript
+
+library(igraph)
+K = as.matrix(read.table(file = 'genetics/filter3/output/kinship.2.sXX.txt', header = F, row.names = NULL, sep = '\t'))
+N = dim(K)[1]
+cutoff = 0.177
+g = make_empty_graph() + vertices(as.character(1:N))
+for (n1 in 2:N) {
+  for (n2 in 1:(n1-1)) {
+    if (K[n1, n2] > cutoff) {
+      g = g + edge(as.character(n1), as.character(n2))
+    }
+  }
+}
+
+gs = decompose(as.undirected(g, mode = "each"), "weak")
+system("echo -n > data/vertices.txt");
+M = length(gs)
+for (i in 1:M) {
+  options(warn=-1)
+  v = largest_ivs(as.undirected(gs[[i]], mode = "each"))
+  v = v[[1]]
+  options(warn=0)
+  for (j in 1:length(v)) {
+    cat(sprintf('%d\n', as.numeric(v[[j]]$name)), file = 'data/vertices.txt', append = TRUE)
+  }
+  #if (length(V(as.undirected(gs[[i]]))) > 1) {
+  #  z = length(v)
+  #  cat(sprintf('%d %d %d\n', i, length(V(as.undirected(gs[[i]]))), z))
+  #}
+}
+
+system("cut -f1 -d' ' genetics/filter3/merged-.fam > data/ids1.txt")
+left = scan("data/vertices.txt", numeric(), quote = "")
+right = scan("data/ids1.txt", numeric(), quote = "")
+right = right[left]
+write(right, file = "data/ids2.txt", append = FALSE, sep = "\n")
+
+

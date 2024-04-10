@@ -18,7 +18,7 @@ The scripts for the **ezprepro** pipeline are provided [here](https://github.com
 
 The preprocessing done by this pipeline consists of the following ordered list of operations:
 
-- Subset the UKB genetic data to a provided list of samples (i.e., participants&mdash;these are the study samples for which the brain phenotype of interest is measured).
+- Subset the UKB genetic data to a provided list of samples (these are the study samples for which the brain phenotype of interest is measured).
 
 - Further subset to samples with white British ancestry (using the UKB variable *in.white.British*), without aneuploidy and with genetic sex matching reported sex.
 
@@ -36,7 +36,7 @@ This process results in files containing genotypes for the discovery cohort and 
 
 To run the **ezprepro** script, follow these steps:
 
-- Step 1: Modify `ezprepro/bin/global.sh` and set the environmental variables to your system specific values.
+- Step 1: Modify `ezprepro/code/global.sh` and set the environmental variables to your system specific values.
 
 - Step 2: Populate `ezprepro/bin/` with binaries (or symlinks to binaries) following the inventory in `ezprepro/bin/index.txt`.
 
@@ -46,7 +46,11 @@ To run the **ezprepro** script, follow these steps:
 
 Each shell command will batch out jobs on _SLURM_, and then block until the jobs end. After running each shell command, you must examine the error and output logs of the jobs. For the shell command `./X10.sh`, the logs will be in `ezprepro/logs/X10/*`. Here `X` is the letter of the shell command that was run. If the error logs or output logs indicate a problem, fix the problem before proceeding. Errors may indicate incorrect settings in `ezprepro/bin/global.sh`, or [oom-killer](https://www.kernel.org/doc/gorman/html/understand/understand016.html) events or [walltime](https://slurm.schedmd.com/resource_limits.html)-exceeded events.
 
-Note that not all of the software used in this pipeline can operate with set RAM limits, so if RAM usage exceeds the default limits on _SLURM_, you may need to modify the shell commands to specify limits. These modifications (to `*10.sh`) may be system-specific, providing names for projects, queues, or numbers for nodes. In general, modifying the _SLURM_ limits can be done by modifying the lines in each of the `*10.sh` scripts before each occurrence of the following echo command:
+- For `./E10.sh`, the call to the _plink_ software is intended to produce an error message. In addition to this error message, a file `merged-merge.missnp` containing multiallelic SNPs should also be created. If this file is correct, then the error messages in the log files for `./E10.sh` do not need to be further resolved.
+
+- For `./I10.sh`, the batched job must run in an environment with a recent version of _R_ and the _R_ package _igraph_ available. On some high performance computers, this may be done by using the `module load R` command (as is done in line 16 of `./I10.sh`), after running `install.packages('igraph')` once in the environment loaded by `module load R.
+
+Note that not all of the software used in this pipeline can operate with set RAM limits. So, if RAM usage exceeds the default limits on _SLURM_, you may need to modify the _SLURM_ flags in the shell commands to specify limits. These modifications (to `*10.sh`) may be system-specific: providing names for projects, queues, or numbers for nodes. In general, modifying the _SLURM_ limits can be done by modifying the lines in each of the `*10.sh` scripts before each occurrence of the following echo command:
 
 ```
 echo "T1=\$(date \"+%s\");" >> $file
@@ -73,7 +77,8 @@ All genotype files are provided in [indexed *bgen* v1.1 format](https://www.chg.
 
 - Due to a limitation in _qctool_ v1.4, the INFO filter might not be applied to the X chromosome genotype files. If univariate GWAS is subsequently performed (for example, through **ezgwas**), then the resulting summary statistics files may be further subset to apply the INFO filter.
 
-- The second step of preprocessing described in the *Preprocessing* section should be modified to include people who are transgendered, people with aneuploidy, and people who do not have recent white British ancestry. This may be done either with further stratification (as is done in the output directories `disco3` and `repro3` for sex), or through further methods development allowing inclusion in downstream analyses without demographic confounding. Note that recent work suggests that UKB participants with mismatch between genetic sex and reported sex may be enriched with transgender people ([S.F. Ackley et al. 2023. Discordance in chromosomal and self-reported sex in the UK Biobank: Implications for transgender- and intersex-inclusive data collection](https://www.pnas.org/doi/abs/10.1073/pnas.2218700120)).
+- To prevent confounding, studies on UK Biobank often subset to participants with recent white British ancestry (the largest ancestry in the consortium). As the sample size for imaged subjects in UK Biobank increases, more power is available for meta-analysis across ancestries. Consider modifying the second step described in the _Preprocessing_ section to stratify by ancestry, as is done for sex in the output directories `disco3` and `repro3`. In addition, with further methods this pipeline may be improved to relax the exclusion for [genetic sex/self reported sex mismatch](https://www.pnas.org/doi/abs/10.1073/pnas.2218700120).
+
 
 ### Profiling
 

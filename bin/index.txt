@@ -1,0 +1,5 @@
+bgenix - A binary for version 1.1 of the bgenix software https://enkre.net/cgi-bin/code/bgen/wiki?name=bgenix
+gemma-v0.98 - A binary for verion 0.98 of the gemma software https://bioinformaticshome.com/tools/gwas/descriptions/GEMMA.html
+plink1.9 - A binary for version 1.9 of the plink software https://www.cog-genomics.org/plink/
+qctool-v1.4 - A binary for version 1.4 of the qctool software https://www.chg.ox.ac.uk/~gav/qctool_v1/
+qctool-v2 - A binary for version 2 of the qctool software https://www.chg.ox.ac.uk/~gav/qctool_v2/
