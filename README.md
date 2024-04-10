@@ -48,7 +48,7 @@ Each shell command will batch out jobs on _SLURM_, and then block until the jobs
 
 - For `./E10.sh`, the _plink_ call is intended to produce an error message. In addition to this error message, a file `merged-merge.missnp` containing multiallelic SNPs should also be created. If this file is correct, then the error messages in the log files for `./E10.sh` do not need to be further resolved.
 
-- For `./I10.sh`, the batched job should run in an environment with a recent version of _R_ and the _R_ package _igraph_ available. On some high performance computers, this may be done by using the `module load R` command (as is done in line 16 of `./I10.sh`). In this case, `install.packages('igraph')` should be run once in the environment loaded by `module load R`.
+- For `./I10.sh`, the batched job should run in an environment with a recent version of _R_ and the _R_ package _igraph_ available. On some high performance computers, this may be done by using the `module load R` command (as is done in line 16 of `./I10.sh`). In this case, `install.packages('igraph')` should be run once in an _R_ session in the environment loaded by `module load R`.
 
 Note that not all of the software used in this pipeline can operate with set RAM limits. So, if RAM usage exceeds the default limits on _SLURM_, you may need to modify the _SLURM_ flags in the shell commands to specify limits. These modifications (to `*10.sh`) may be system-specific: providing names for projects, queues, or numbers for nodes. In general, modifying the _SLURM_ limits can be done by modifying the lines in each of the `*10.sh` scripts before each occurrence of the following echo command:
 
