@@ -75,7 +75,7 @@ All genotype files are provided in [indexed *bgen* v1.1 format](https://www.chg.
 
 ### Errors
 
-- Due to a limitation in _qctool_ v1.4, the INFO filter might not be applied to the X chromosome genotype files. If univariate GWAS is subsequently performed (for example, through **ezgwas**), then the resulting summary statistics files may be further subset to apply the INFO filter.
+- Due to a limitation in _qctool_ v1.4, the _INFO_ filter might not be applied to the X chromosome genotype files. If univariate GWAS is subsequently performed (for example, through **ezgwas**), then the resulting summary statistics files may be further subset to apply the _INFO_ filter.
 
 - To prevent confounding, studies on UK Biobank often subset to participants with recent white British ancestry (the largest ancestry in the consortium). As the sample size for imaged subjects in UK Biobank increases, more power is available for meta-analysis across ancestries. Consider modifying the second step described in the _Preprocessing_ section to stratify by ancestry, as is done for sex in the output directories `disco3` and `repro3`. In addition, with further methods this pipeline may be improved to relax the exclusion for [genetic sex/self reported sex mismatch](https://www.pnas.org/doi/abs/10.1073/pnas.2218700120).
 
